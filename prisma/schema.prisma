@@ -10,7 +10,7 @@ datasource db {
 
 model User {
   id String @id @default(uuid())
-  identifiant String @db.VarChar(50)
+  identifiant String @db.VarChar(20)
   email String @unique() @db.VarChar(320)
   password String @db.VarChar(255)
   token String @db.VarChar(255)
@@ -20,7 +20,7 @@ model User {
 
 model Product {
   id String @id @default(uuid())
-  name String @unique @db.VarChar(50)
+  name String @unique @db.VarChar(30)
   description String @db.VarChar(500)
   image String @db.VarChar(50)
   price Float @db.DoublePrecision
@@ -31,7 +31,7 @@ model Product {
 
 model Category {
   id String @id @default(uuid())
-  name String @unique() @db.VarChar(50) 
+  name String @unique() @db.VarChar(30) 
 
   product Product[]
 }
