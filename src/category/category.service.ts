@@ -11,6 +11,9 @@ export class CategoryService {
       orderBy: {
         name: 'asc',
       },
+      select: {
+        name: true,
+      },
     });
   }
 
@@ -27,7 +30,10 @@ export class CategoryService {
       data: {
         ...dto,
       },
+      select: {
+        name: true,
+      },
     });
-    return category
+    return category;
   }
 }
