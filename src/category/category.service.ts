@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { InsertCategoryDto } from './dto/create.category.dto';
+import { UpdateCategoryDto } from './dto/update.categroy.dto';
 
 @Injectable()
 export class CategoryService {
@@ -24,7 +25,7 @@ export class CategoryService {
       },
     });
     if (existingCategory) {
-      throw new ForbiddenException('Nom déjà utilisé');
+      throw new ForbiddenException('Name Already Taken');
     }
     const category = await this.prisma.category.create({
       data: {
@@ -35,5 +36,50 @@ export class CategoryService {
       },
     });
     return category;
+  }
+
+  async updateCategory(dto: UpdateCategoryDto, id: string) {
+    const existingCategory = await this.prisma.category.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    if (!existingCategory || !existingCategory) {
+      throw new ForbiddenException('Unexisting Category');
+    }
+    const existingCategoryName = await this.prisma.category.findUnique({
+      where: {
+        name: dto.name,
+      },
+    });
+    if (existingCategoryName) {
+      throw new ForbiddenException('Name Already Taken');
+    }
+    await this.prisma.category.update({
+      where: {
+        id: id,
+      },
+      data: {
+        ...dto,
+      },
+    });
+    return { message: 'Update Sucessfully' };
+  }
+
+  async deleteCategory(id: string) {
+    const existingCategory = await this.prisma.category.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    if (!existingCategory || !existingCategory.id) {
+      throw new ForbiddenException('Unexising Id');
+    }
+    await this.prisma.category.delete({
+      where: {
+        id: id,
+      },
+    });
+    return { message: 'Delete' };
   }
 }

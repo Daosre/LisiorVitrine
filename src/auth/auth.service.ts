@@ -39,7 +39,7 @@ export class AuthService {
       },
     });
     if (existingUser) {
-      throw new ForbiddenException("L'Email est déjà utiliser");
+      throw new ForbiddenException('Email Already Taken');
     }
     const hash = await argon.hash(dto.password);
     const activationToken = await argon.hash(`${new Date()} + ${dto.email}`);
@@ -51,7 +51,7 @@ export class AuthService {
         token: newtToken,
       },
     });
-    return { message: 'Inscription Réussi' };
+    return { message: 'Inscription Sucessfully' };
   }
 
   async signIn(dto: SignInDto) {
@@ -65,12 +65,12 @@ export class AuthService {
       },
     });
     if (!user) {
-      throw new ForbiddenException('Email Non Valide');
+      throw new ForbiddenException('Email Not Valid');
     }
     const isValidPassword = await argon.verify(user.password, dto.password);
 
     if (!isValidPassword) {
-      throw new ForbiddenException('Mot de passe invalide');
+      throw new ForbiddenException('Password Not Valid');
     }
     return {
       token: await this.signToken(user.id, '30d'),
