@@ -20,6 +20,8 @@ export class ProductService {
     });
   }
 
+  //Rajouter une route pour le produit par ID
+
   async insertProduct(dto: InsertProductDto) {
     const existingProduct = await this.prisma.product.findFirst({
       where: {
