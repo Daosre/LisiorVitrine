@@ -47,7 +47,7 @@ export class ProductService {
     if (!existingProduct) {
       throw new ForbiddenException('Unexisting Id');
     }
-    const existingProductName = await this.prisma.product.findFirst({
+    const existingProductName = await this.prisma.product.findUnique({
       where: {
         name: dto.name,
       },
@@ -72,7 +72,7 @@ export class ProductService {
         id: id,
       },
     });
-    if (!existingProduct || !existingProduct) {
+    if (!existingProduct) {
       throw new ForbiddenException('Unexisting Id');
     }
     await this.prisma.product.delete({

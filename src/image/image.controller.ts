@@ -12,12 +12,9 @@ import { Response } from 'express';
 import { createReadStream, existsSync } from 'fs';
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
-import { ImageService } from './image.service';
 
 @Controller('image')
 export class ImageController {
-  constructor(private readonly imageService: ImageService) {}
-
   @Post('/upload')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -33,8 +30,6 @@ export class ImageController {
     }),
   )
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    console.log(file);
-
     return { file: file.filename };
   }
 

@@ -72,7 +72,7 @@ export class CategoryService {
         id: id,
       },
     });
-    if (!existingCategory || !existingCategory.id) {
+    if (!existingCategory) {
       throw new ForbiddenException('Unexising Id');
     }
     await this.prisma.category.delete({
