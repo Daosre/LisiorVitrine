@@ -44,7 +44,7 @@ export class CategoryService {
         id: id,
       },
     });
-    if (!existingCategory || !existingCategory) {
+    if (!existingCategory) {
       throw new ForbiddenException('Unexisting Category');
     }
     const existingCategoryName = await this.prisma.category.findUnique({
