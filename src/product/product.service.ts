@@ -65,4 +65,21 @@ export class ProductService {
     });
     return { message: 'Successfull' };
   }
+
+  async deleteProduct(id: string) {
+    const existingProduct = await this.prisma.product.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    if (!existingProduct || !existingProduct) {
+      throw new ForbiddenException('Unexisting Id');
+    }
+    await this.prisma.product.delete({
+      where: {
+        id: id,
+      },
+    });
+    return { message: 'Delete' };
+  }
 }
