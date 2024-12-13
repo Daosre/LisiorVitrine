@@ -20,7 +20,20 @@ export class ProductService {
     });
   }
 
-  //Rajouter une route pour le produit par ID
+  async searchProduct(Product: string) {
+    return this.prisma.product.findMany({
+      where: {
+        name: Product,
+      },
+      select: {
+        name: true,
+        description: true,
+        image:true,
+        price: true,
+      }
+    });
+  }
+
   async oneProduct(id: string) {
     return this.prisma.product.findUnique({
       where: {

@@ -43,4 +43,9 @@ export class ProductController {
   deleteProduct(@Param('id') id: string) {
     return this.productService.deleteProduct(id);
   }
+
+  @Get('/search/:product')
+  SearchProduct(@Param('product') product: string) {
+    return this.productService.searchProduct(product);
+  }
 }
