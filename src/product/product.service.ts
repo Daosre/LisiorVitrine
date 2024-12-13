@@ -28,9 +28,9 @@ export class ProductService {
       select: {
         name: true,
         description: true,
-        image:true,
+        image: true,
         price: true,
-      }
+      },
     });
   }
 
