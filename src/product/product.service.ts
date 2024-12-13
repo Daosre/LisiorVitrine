@@ -21,6 +21,19 @@ export class ProductService {
   }
 
   //Rajouter une route pour le produit par ID
+  async oneProduct(id: string) {
+    return this.prisma.product.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        name: true,
+        description: true,
+        image: true,
+        price: true,
+      },
+    });
+  }
 
   async insertProduct(dto: InsertProductDto) {
     const existingProduct = await this.prisma.product.findFirst({
